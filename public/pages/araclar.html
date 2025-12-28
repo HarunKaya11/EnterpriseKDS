@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araçlar</title>
+    <link rel="stylesheet" href="../css/araclar.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                <a href="adminPanel.html">
+                    <img src="../images/enterpriselogo.png" alt="enterpriselogo">
+                </a>
+            </div>
+            <div class="logout">
+                <a href="adminGiris.html">Çıkış Yap</a>
+            </div>
+        </div>
+        <div class="navbar">
+            <ul class="navbar-items">
+                <a href="adminPanel.html">
+                    <li class="navbar-item">Anasayfa</li>
+                </a>
+                <a href="subeler.html">
+                    <li class="navbar-item">Şubeler</li>
+                </a>
+                <a href="araclar.html">
+                    <li class="navbar-item">Araçlar</li>
+                </a>
+                <a href="bakimlar.html">
+                    <li class="navbar-item">Bakımlar</li>
+                </a>
+                <a href="tahminleme.html">
+                    <li class="navbar-item">Tahminleme</li>
+                </a>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h2>En Az Kiralanan Araçlar</h2>
+                <canvas id="chartAz"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h2>En Çok Kiralanan Araçlar</h2>
+                <canvas id="chartCok"></canvas>
+            </div>
+        </div>
+        <section class="prediction-section">
+            <h2>2026 Araç Gelir Tahmini</h2>
+            
+            <div class="prediction-card">
+                <div class="input-group">
+                    <label for="inflation-rate">Beklenen Enflasyon Oranı (%):</label>
+                    <input type="number" id="inflation-rate" placeholder="Örn: 45" min="0" step="0.1">
+
+                    <div class="inflation-hints">
+                        <span class="hint-title">Referans (TÜFE):</span>
+                        <div class="hint-tag" onclick="fillInflation(64.27)">2022: %64,27</div>
+                        <div class="hint-tag" onclick="fillInflation(64.77)">2023: %64,77</div>
+                        <div class="hint-tag" onclick="fillInflation(44.38)">2024: %44,38</div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="car-select">Araç Seçiniz:</label>
+                    <select id="car-select">
+                        <option value="">Listeden bir araç seçin...</option>
+                        </select>
+                </div>
+
+                <button onclick="calculateRevenue()" class="calculate-btn">Hesapla</button>
+
+                <div class="result-box" id="result-box" style="display: none;">
+                    <h3>Tahmini 2026 Geliri</h3>
+                    <p id="result-value">0,00 ₺</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/adminAraclar.js"></script>
+</body>
+</html>

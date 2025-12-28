@@ -1,0 +1,237 @@
+/* --- GENEL AYARLAR & RESET --- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8; /* Modern açık gri zemin */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- HEADER & NAVBAR (Diğer sayfayla birebir uyumlu) --- */
+header {
+    background: linear-gradient(135deg, #006639, #169a5a);
+    box-shadow: 0 4px 12px rgba(0, 102, 57, 0.2);
+    position: relative;
+    z-index: 100;
+}
+
+.header-top {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo {
+    margin-left: 15px;
+}
+
+.logo img {
+    width: 140px;
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.logout {
+    margin-right: 30px;
+}
+
+.logout a {
+    text-decoration: none;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    padding: 10px 24px;
+    transition: all 0.3s ease;
+}
+
+.logout a:hover {
+    background-color: #fff;
+    color: #006639;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.navbar-items {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 10px;
+}
+
+.navbar-items a {
+    text-decoration: none;
+}
+
+.navbar-item {
+    padding: 10px 25px;
+    list-style-type: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+}
+
+.navbar-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.navbar-item.active {
+    background-color: #fff;
+    color: #006639;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- FİLTRE ALANI --- */
+.filter-container {
+    max-width: 1400px;
+    margin: 30px auto; /* Ortala ve boşluk bırak */
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 16px; /* Yuvarlak köşeler */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); /* Hafif gölge */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Sola yasla */
+    gap: 20px;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.filter-container label {
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+/* Select Inputlarını Modernleştirme */
+#date-filter,
+#year-filter {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+#date-filter:hover,
+#year-filter:hover {
+    background-color: #fff;
+    border-color: #169a5a;
+}
+
+#date-filter:focus,
+#year-filter:focus {
+    border-color: #169a5a;
+    box-shadow: 0 0 0 3px rgba(22, 154, 90, 0.1); /* Odaklanınca yeşil hare */
+    background-color: #fff;
+}
+
+/* --- TABLOLAR ALANI --- */
+.tables-container {
+    display: flex;
+    justify-content: space-between; /* Yan yana diz */
+    align-items: flex-start;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    background-color: transparent; /* Konteyner şeffaf olsun, tablolar kart olsun */
+    box-shadow: none; /* Eski gölgeyi kaldır */
+}
+
+/* Tabloları "Kart" Gibi Gösteriyoruz */
+table {
+    flex: 1; /* Eşit genişlikte paylaşsınlar */
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: separate; /* Border-radius için gerekli */
+    border-spacing: 0;
+    background-color: #fff;
+    border-radius: 16px;
+    overflow: hidden; /* Köşelerin yuvarlak kalması için */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Modern kart gölgesi */
+    border: 1px solid rgba(0,0,0,0.02);
+    min-width: 400px; /* Çok küçülmesin */
+}
+
+thead {
+    background-color: #f8f9fa;
+}
+
+th {
+    padding: 18px 20px;
+    text-align: left;
+    border: none; /* Çizgileri kaldırdık */
+    background-color: #f8f9fa; /* Header rengi açık gri/beyaz olsun */
+    color: #006639; /* Yazılar yeşil olsun */
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+td {
+    padding: 16px 20px;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #f0f0f0; /* Sadece ince yatay çizgi */
+    color: #555;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Satır Hover Efekti */
+tbody tr {
+    transition: background-color 0.2s;
+}
+
+tbody tr:hover td {
+    background-color: #f1fcf5; /* Açık yeşil */
+    color: #006639;
+}
+
+/* İlk sütunu biraz daha belirgin yapalım */
+td:first-child {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 900px) {
+    .tables-container {
+        flex-direction: column; /* Mobilde alt alta geçsin */
+    }
+    
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

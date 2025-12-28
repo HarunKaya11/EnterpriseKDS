@@ -1,0 +1,415 @@
+/* --- GENEL AYARLAR & RESET --- */
+* {
+    box-sizing: border-box; /* Padding ekleyince kutu boyutunun bozulmasını engeller */
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, sans-serif; /* Sistem fontlarını yedek olarak ekledim */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8; /* Biraz daha soğuk, modern bir gri tonu */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- HEADER & NAVBAR --- */
+header {
+    background: linear-gradient(135deg, #006639, #169a5a); /* Gradyanı biraz açılı yaptık */
+    box-shadow: 0 4px 12px rgba(0, 102, 57, 0.2);
+    position: relative;
+    z-index: 100;
+}
+
+.header-top {
+    display: flex;
+    height: 80px; /* Biraz daha ferah */
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo {
+    margin-left: 15px;
+}
+
+.logo img {
+    width: 140px; /* Logo biraz daha belirgin */
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.logout {
+    margin-right: 30px;
+}
+
+.logout a {
+    text-decoration: none;
+    border-radius: 30px; /* Tam yuvarlak (pill) buton */
+    background-color: rgba(255, 255, 255, 0.1); /* Saydam beyaz arka plan */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    padding: 10px 24px;
+    transition: all 0.3s ease;
+}
+
+.logout a:hover {
+    background-color: #fff;
+    color: #006639;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.1); /* Ana rengin üzerine hafif bir koyuluk */
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.navbar-items {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 10px; /* Linkler arası boşluk */
+}
+
+.navbar-items a {
+    text-decoration: none;
+}
+
+.navbar-item {
+    padding: 10px 25px;
+    list-style-type: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+}
+
+.navbar-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translateY(-2px); /* Hafif yukarı kalkma efekti */
+}
+
+/* HTML'de active class'ı varsa */
+.navbar-item.active {
+    background-color: #fff;
+    color: #006639;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- FİLTRE ALANI (DÜZELTİLDİ) --- */
+.filter-section {
+    text-align: center;
+    margin: 30px auto;
+    max-width: 1400px;
+}
+
+.filter-section h3 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* JavaScript ile oluşturulan Yıl Gruplarının Kapsayıcısı */
+#filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 25px; /* Gruplar arası boşluk */
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+/* Her bir yılın kutusu (JS tarafından oluşturuluyor) */
+.year-group {
+    display: flex;
+    flex-direction: column; /* Butonları alt alta dizer */
+    gap: 10px; /* Butonlar arası boşluk */
+    padding: 25px;
+    background-color: #fff; /* Modern beyaz kutu */
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Yumuşak gölge */
+    min-width: 220px;
+}
+
+/* Yıl Başlığı (Örn: 2021) */
+.year-group h4 {
+    text-align: center;
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.year-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+/* Ortak Buton Stilleri (Modern) */
+.filter-btn, .year-btn {
+    border: none;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%; /* Grup içindeki butonlar tam genişlikte olsun */
+}
+
+/* Tarih/Filtre Butonları (Dolu Yeşil) */
+.filter-btn {
+    background-color: #169a5a;
+    color: white;
+}
+
+.filter-btn:hover {
+    background-color: #006639;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(22, 154, 90, 0.3);
+}
+
+.filter-btn.active {
+    background-color: #000; /* Aktif olunca siyah */
+    color: white;
+    transform: scale(1.02);
+}
+
+/* Yıl Butonları (Alt kısımdaki siyahlar) */
+.year-btn {
+    background-color: #2A2A2A;
+    color: #fff;
+    width: auto; /* Bunlar yan yana olduğu için tam genişlik olmasın */
+    padding: 12px 30px;
+}
+
+.year-btn:hover {
+    background-color: #444;
+    transform: translateY(-2px);
+}
+
+.year-btn.active {
+    background-color: #006639; 
+    color: white;
+    box-shadow: 0 0 0 3px rgba(0, 102, 57, 0.3);
+}
+
+/* --- KARTLAR (KPIs) --- */
+.summary-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 1400px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #fff;
+    padding: 30px 20px;
+    border-radius: 16px;
+    text-align: center;
+    flex: 1;
+    min-width: 280px;
+    border: 1px solid rgba(0,0,0,0.03); /* Çok hafif sınır */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Modern, yumuşak gölge */
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* Kartın üstüne ince yeşil çizgi dekoru */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #006639, #169a5a);
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 2rem; /* Rakamları büyüttük */
+    font-weight: 800;
+    color: #2A2A2A;
+    margin: 0;
+}
+
+/* --- GRAFİKLER --- */
+.grafikler {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.grafik-basliklar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    gap: 20px;
+}
+
+.grafik-basliklar h2 {
+    flex: 1;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #444;
+    font-weight: 600;
+    margin: 0;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Canvas'ı bir kart gibi gösterelim */
+canvas {
+    flex: 1;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0,0,0,0.03);
+    max-width: 48%; /* Yan yana sığması için */
+    height: auto !important; /* Aspect ratio koruması */
+    min-height: 350px;
+}
+
+/* --- TABLOLAR --- */
+.tables-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+.table-container {
+    flex: 1;
+    min-width: 450px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.table-container h3 {
+    text-align: left;
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #006639;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Eski border="1" görünümünü sıfırlıyoruz */
+#commonCarsTable, #araclariGetir, 
+#commonCarsTable th, #commonCarsTable td, 
+#araclariGetir th, #araclariGetir td {
+    border: none;
+    box-shadow: none;
+}
+
+thead {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+}
+
+th {
+    padding: 16px;
+    text-align: left; /* Başlıkları sola yasladık, daha modern durur */
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+/* Tablo satır hover efekti */
+tbody tr {
+    transition: background-color 0.2s;
+}
+
+tbody tr:hover td {
+    background-color: #f1fcf5; /* Çok açık yeşil bir ton */
+    color: #006639;
+    font-weight: 500;
+}
+
+/* İlk sütunu (ID) biraz daha soluk yapalım */
+td:first-child {
+    color: #888;
+    font-weight: bold;
+    width: 80px;
+    text-align: center;
+}
+th:first-child {
+    text-align: center;
+}
+
+/* Responsive (Mobil Uyum) İçin Ufak Dokunuşlar */
+@media (max-width: 900px) {
+    .chart-container, .tables-container {
+        flex-direction: column;
+    }
+    
+    canvas, .table-container {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .summary-cards {
+        flex-wrap: wrap;
+    }
+}

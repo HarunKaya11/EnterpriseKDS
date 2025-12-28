@@ -1,0 +1,313 @@
+/* --- GENEL AYARLAR & RESET --- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8; /* Diğer sayfalarla aynı modern gri */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- HEADER & NAVBAR (Standart Modern Tasarım) --- */
+header {
+    background: linear-gradient(135deg, #006639, #169a5a);
+    box-shadow: 0 4px 12px rgba(0, 102, 57, 0.2);
+    position: relative;
+    z-index: 100;
+}
+
+.header-top {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo {
+    margin-left: 15px;
+}
+
+.logo img {
+    width: 140px;
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.logout {
+    margin-right: 30px;
+}
+
+.logout a {
+    text-decoration: none;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    padding: 10px 24px;
+    transition: all 0.3s ease;
+}
+
+.logout a:hover {
+    background-color: #fff;
+    color: #006639;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.navbar-items {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 10px;
+}
+
+.navbar-items a {
+    text-decoration: none;
+}
+
+.navbar-item {
+    padding: 10px 25px;
+    list-style-type: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+}
+
+.navbar-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.navbar-item.active {
+    background-color: #fff;
+    color: #006639;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- GRAFİK ALANI (CHARTS) --- */
+.charts-container {
+    display: flex;
+    justify-content: center; /* Ortaya hizala */
+    align-items: stretch; /* Kart boylarını eşitlemeye çalış */
+    flex-wrap: wrap;
+    gap: 30px; /* Kartlar arası modern boşluk */
+    margin: 40px auto;
+    padding: 0 20px;
+    max-width: 1400px;
+}
+
+/* Her bir grafik kutusu bir "Kart" gibi davranacak */
+.chart-wrapper {
+    background-color: #fff;
+    width: 48%; /* Yan yana iki tane sığsın (boşluk payıyla) */
+    min-width: 400px; /* Çok küçülmesin */
+    padding: 30px;
+    border-radius: 16px; /* Yuvarlak köşeler */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Modern yumuşak gölge */
+    border: 1px solid rgba(0,0,0,0.03); /* Çok hafif sınır */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-wrapper:hover {
+    transform: translateY(-5px); /* Üzerine gelince hafif kalksın */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.4rem;
+    color: #444; /* Tam siyah değil, yumuşak koyu gri */
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 700;
+    border-bottom: 2px solid #f0f0f0; /* Başlık altına ince çizgi */
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+/* Canvas (Grafik) Boyutlandırma Kontrolü */
+canvas {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 900px) {
+    .charts-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .chart-wrapper {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+
+/* --- TAHMİN SİMÜLASYONU BÖLÜMÜ --- */
+.prediction-section {
+    max-width: 800px; /* Çok yayılmasın, derli toplu dursun */
+    margin: 40px auto 60px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.prediction-card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.input-group {
+    width: 100%;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Input ve Select Stilleri - Modern */
+.input-group input, 
+.input-group select {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.input-group input:focus, 
+.input-group select:focus {
+    border-color: #169a5a;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(22, 154, 90, 0.1);
+}
+
+/* Hesapla Butonu */
+.calculate-btn {
+    background: linear-gradient(135deg, #006639, #169a5a);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+    max-width: 300px;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 102, 57, 0.3);
+}
+
+.calculate-btn:active {
+    transform: scale(0.98);
+}
+
+/* Sonuç Kutusu */
+.result-box {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f1fcf5; /* Açık yeşil zemin */
+    border-radius: 12px;
+    width: 100%;
+    border: 1px solid #169a5a;
+    animation: fadeIn 0.5s ease;
+}
+
+.result-box h3 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: #555;
+    border: none; /* Üstteki h2 stillerinden etkilenmesin */
+}
+
+.result-box p {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #006639;
+    margin: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- ENFLASYON İPUÇLARI (CHIPS) --- */
+.inflation-hints {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.hint-title {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.hint-tag {
+    background-color: #f1fcf5; /* Çok açık yeşil */
+    color: #006639; /* Kurumsal yeşil */
+    padding: 6px 12px;
+    border-radius: 20px; /* Hap şeklinde */
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #c3e6cb;
+    transition: all 0.2s ease;
+}
+
+.hint-tag:hover {
+    background-color: #006639;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.hint-tag:active {
+    transform: scale(0.95);
+}
