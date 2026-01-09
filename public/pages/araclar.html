@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Araçlar</title>
+    <title>Enterprise KDS - Araç Yönetimi</title>
     <link rel="stylesheet" href="../css/araclar.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -13,47 +13,39 @@
         <div class="header-top">
             <div class="logo">
                 <a href="adminPanel.html">
-                    <img src="../images/enterpriselogo.png" alt="enterpriselogo">
+                    <img src="../images/enterpriselogo.png" alt="Enterprise Logo">
                 </a>
             </div>
             <div class="logout">
                 <a href="adminGiris.html">Çıkış Yap</a>
             </div>
         </div>
-        <div class="navbar">
+        <nav class="navbar">
             <ul class="navbar-items">
-                <a href="adminPanel.html">
-                    <li class="navbar-item">Anasayfa</li>
-                </a>
-                <a href="subeler.html">
-                    <li class="navbar-item">Şubeler</li>
-                </a>
-                <a href="araclar.html">
-                    <li class="navbar-item">Araçlar</li>
-                </a>
-                <a href="bakimlar.html">
-                    <li class="navbar-item">Bakımlar</li>
-                </a>
-                <a href="tahminleme.html">
-                    <li class="navbar-item">Tahminleme</li>
-                </a>
+                <li><a href="adminPanel.html" class="navbar-item">Anasayfa</a></li>
+                <li><a href="subeler.html" class="navbar-item">Şubeler</a></li>
+                <li><a href="araclar.html" class="navbar-item active">Araçlar</a></li>
+                <li><a href="bakimlar.html" class="navbar-item">Bakımlar</a></li>
+                <li><a href="tahminleme.html" class="navbar-item">Tahminleme</a></li>
             </ul>
-        </div>
+        </nav>
     </header>
 
     <main>
         <div class="charts-container">
             <div class="chart-wrapper">
-                <h2>En Az Kiralanan Araçlar</h2>
+                <h2>Verimsiz Araçlar (En Az Kiralanan)</h2>
                 <canvas id="chartAz"></canvas>
             </div>
             <div class="chart-wrapper">
-                <h2>En Çok Kiralanan Araçlar</h2>
+                <h2>Popüler Araçlar (En Çok Kiralanan)</h2>
                 <canvas id="chartCok"></canvas>
             </div>
         </div>
+
         <section class="prediction-section">
-            <h2>2026 Araç Gelir Tahmini</h2>
+            <h2>KDS: 2026 Finansal Gelir Tahmini</h2>
+            <p class="section-desc">Geçmiş veriler ve ekonomik göstergeler ışığında araç bazlı ciro tahmini yapın.</p>
             
             <div class="prediction-card">
                 <div class="input-group">
@@ -61,25 +53,26 @@
                     <input type="number" id="inflation-rate" placeholder="Örn: 45" min="0" step="0.1">
 
                     <div class="inflation-hints">
-                        <span class="hint-title">Referans (TÜFE):</span>
-                        <div class="hint-tag" onclick="fillInflation(64.27)">2022: %64,27</div>
-                        <div class="hint-tag" onclick="fillInflation(64.77)">2023: %64,77</div>
-                        <div class="hint-tag" onclick="fillInflation(44.38)">2024: %44,38</div>
+                        <span class="hint-title">Referans TÜFE Verileri:</span>
+                        <button class="hint-tag" onclick="fillInflation(64.27)">2022: %64,27</button>
+                        <button class="hint-tag" onclick="fillInflation(64.77)">2023: %64,77</button>
+                        <button class="hint-tag" onclick="fillInflation(44.38)">2024: %44,38</button>
                     </div>
                 </div>
 
                 <div class="input-group">
-                    <label for="car-select">Araç Seçiniz:</label>
+                    <label for="car-select">Analiz Edilecek Araç:</label>
                     <select id="car-select">
-                        <option value="">Listeden bir araç seçin...</option>
+                        <option value="">-- Listeden bir araç seçin --</option>
                         </select>
                 </div>
 
-                <button onclick="calculateRevenue()" class="calculate-btn">Hesapla</button>
+                <button onclick="calculateRevenue()" class="calculate-btn">Analizi Başlat</button>
 
                 <div class="result-box" id="result-box" style="display: none;">
-                    <h3>Tahmini 2026 Geliri</h3>
+                    <h3>📊 Tahmini 2026 Yıllık Cirosu</h3>
                     <p id="result-value">0,00 ₺</p>
+                    <small>*Bu değer yıllık ortalamaların enflasyonla projeksiyonudur.</small>
                 </div>
             </div>
         </section>

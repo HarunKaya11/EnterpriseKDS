@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Para birimi formatlama fonksiyonu
     function formatToCurrency(value) {
         if (value === null || value === undefined) return '-';
         return new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(value);
     }
 
-    fetch('/api/bakimlar/az-bakim-cok-masraf')
+    // 1. TABLO: Az Bakım - Çok Masraf (Yeni Rota: /api/bakim/...)
+    fetch('/api/bakim/az-bakim-cok-masraf')
         .then(res => res.json())
         .then(data => {
             const tbody = document.querySelector('#az-bakim-table tbody');
@@ -15,15 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${item.arac_model || '-'}</td>
                     <td>${item.yakit_turu || '-'}</td>
                     <td>${item.toplam_bakim_sayisi || 0}</td>
-                    <td>${formatToCurrency(item.toplam_masraf) || formatToCurrency(0)}</td>
-                    <td>${formatToCurrency(item.ortalama_masraf) || formatToCurrency(0)}</td>
+                    <td>${formatToCurrency(item.toplam_masraf)}</td>
+                    <td>${formatToCurrency(item.ortalama_masraf)}</td>
                 `;
                 tbody.appendChild(tr);
             });
         })
         .catch(err => console.error('Az Bakım - Çok Masraf Veri Hatası:', err));
 
-    fetch('/api/bakimlar/cok-bakim-az-masraf')
+    // 2. TABLO: Çok Bakım - Az Masraf (Yeni Rota: /api/bakim/...)
+    fetch('/api/bakim/cok-bakim-az-masraf')
         .then(res => res.json())
         .then(data => {
             const tbody = document.querySelector('#cok-bakim-table tbody');
@@ -33,16 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${item.arac_model || '-'}</td>
                     <td>${item.yakit_turu || '-'}</td>
                     <td>${item.toplam_bakim_sayisi || 0}</td>
-                    <td>${formatToCurrency(item.toplam_masraf) || formatToCurrency(0)}</td>
-                    <td>${formatToCurrency(item.ortalama_masraf) || formatToCurrency(0)}</td>
+                    <td>${formatToCurrency(item.toplam_masraf)}</td>
+                    <td>${formatToCurrency(item.ortalama_masraf)}</td>
                 `;
                 tbody.appendChild(tr);
             });
         })
         .catch(err => console.error('Çok Bakım - Az Masraf Veri Hatası:', err));
 
-    // Masraflı araç grafiği
-    fetch('/api/bakimlar/masrafli-arac')
+    // 3. GRAFİK: Masraflı Araç Grafiği (Yeni Rota: /api/bakim/...)
+    fetch('/api/bakim/masrafli-arac')
         .then(res => res.json())
         .then(data => {
             const labels = data.map(item => item.arac_model);
@@ -54,31 +57,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Toplam Masraf',
+                        label: 'Toplam Masraf (₺)',
                         data: values,
                         backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                        borderColor: 'rgba(255,99,132,1)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
                     }]
                 },
                 options: {
                     responsive: true,
-                    scales: {
-                        y: { beginAtZero: true }
-                    },
                     plugins: {
-                        title: {
-                            display: true,
-                            text: 'En Masraflı 20 Araç'
-                        }
-                    }
+                        title: { display: true, text: 'En Masraflı 20 Araç (KDS Analizi)' }
+                    },
+                    scales: { y: { beginAtZero: true } }
                 }
             });
         })
         .catch(err => console.error('Masraflı Araç Veri Hatası:', err));
 
-    // Bakım sayısı grafiği
-    fetch('/api/bakimlar/bakim-sayisi')
+    // 4. GRAFİK: Bakım Sayısı Grafiği (Yeni Rota: /api/bakim/...)
+    fetch('/api/bakim/bakim-sayisi')
         .then(res => res.json())
         .then(data => {
             const labels = data.map(item => item.arac_model);
@@ -93,21 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         label: 'Bakım Sayısı',
                         data: values,
                         backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54,162,235,1)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
                     }]
                 },
                 options: {
                     responsive: true,
-                    scales: {
-                        y: { beginAtZero: true }
-                    },
                     plugins: {
-                        title: {
-                            display: true,
-                            text: 'Bakım Sayısı En Yüksek 20 Araç'
-                        }
-                    }
+                        title: { display: true, text: 'En Çok Bakıma Giren Araçlar' }
+                    },
+                    scales: { y: { beginAtZero: true } }
                 }
             });
         })

@@ -2,13 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateFilter = document.getElementById('date-filter');
     const yearFilter = document.getElementById('year-filter');
 
+    // Başlangıç verisi (Varsayılan olarak bir aralık yüklüyoruz)
     loadData('2022-01-01', '2022-03-31');
 
+    // Tarih aralığı değiştiğinde
     dateFilter.addEventListener('change', (e) => {
         const [startDate, endDate] = e.target.value.split('|');
         loadData(startDate, endDate);
     });
 
+    // Yıl filtresi değiştiğinde
     yearFilter.addEventListener('change', (e) => {
         const selectedYear = e.target.value;
         const startDate = `${selectedYear}-01-01`;
@@ -17,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function loadData(startDate, endDate) {
-
-        fetch(`/api/subeler/kiralanan-gun?startDate=${startDate}&endDate=${endDate}`)
+        // --- 1. Kiralanan Gün Tablosu (Yeni Rota: /api/sube/...) ---
+        fetch(`/api/sube/kiralanan-gun?startDate=${startDate}&endDate=${endDate}`)
             .then(response => response.json())
             .then(data => {
                 const kiralananGunTable = document.getElementById('kiralananGunTable').getElementsByTagName('tbody')[0];
@@ -30,10 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             })
             .catch(error => {
-                console.error('Kiralanan gün tablosu yüklenirken hata:', error);
+                console.error('Şube gün verisi çekilirken hata oluştu:', error);
             });
 
-        fetch(`/api/subeler/kiralama-geliri?startDate=${startDate}&endDate=${endDate}`)
+        // --- 2. Kiralama Geliri Tablosu (Yeni Rota: /api/sube/...) ---
+        fetch(`/api/sube/kiralama-geliri?startDate=${startDate}&endDate=${endDate}`)
             .then(response => response.json())
             .then(data => {
                 const kiralamaGeliriTable = document.getElementById('kiralamaGeliriTable').getElementsByTagName('tbody')[0];
@@ -41,15 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 data.forEach(item => {
                     const row = kiralamaGeliriTable.insertRow();
                     row.insertCell(0).textContent = item.sube_adi;
-                    row.insertCell(1).textContent = formatToCurrency(item.kiralama_geliri) || 0;
+                    row.insertCell(1).textContent = formatToCurrency(item.kiralama_geliri);
                 });
             })
             .catch(error => {
-                console.error('Kiralama geliri tablosu yüklenirken hata:', error);
+                console.error('Şube gelir verisi çekilirken hata oluştu:', error);
             });
     }
 
-    // Helper function to format numbers as currency (TL)
+    // Para birimi formatlama (TL)
     function formatToCurrency(value) {
         if (value === null || value === undefined) return '-';
         return new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(value);

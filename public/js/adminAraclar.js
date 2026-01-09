@@ -1,6 +1,7 @@
 Promise.all([
-    fetch('/api/araclar/az_olan_sorgu').then(res => res.json()),
-    fetch('/api/araclar/cok_olan_sorgu').then(res => res.json())
+    // Yeni rota yapımıza göre adresleri güncelledik
+    fetch('/api/filo/az_olan_sorgu').then(res => res.json()),
+    fetch('/api/filo/cok_olan_sorgu').then(res => res.json())
 ]).then(([azData, cokData]) => {
     const azLabels = azData.map(item => item.arac_model);
     const azValues = azData.map(item => item.kiralama_sayisi);
@@ -17,7 +18,7 @@ Promise.all([
         data: {
             labels: azLabels,
             datasets: [{
-                label: 'Kiralama Sayısı',
+                label: 'Kiralama Sayısı (Az)',
                 data: azValues,
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 borderColor: 'rgba(54, 162, 235, 1)',
@@ -27,33 +28,25 @@ Promise.all([
         options: {
             responsive: true,
             plugins: {
-                title: {
-                    display: true,
-                },
                 tooltip: {
                     callbacks: {
                         afterLabel: function (context) {
-                            const index = context.dataIndex;
-                            return 'Yakıt Türü: ' + azYakit[index];
+                            return 'Yakıt Türü: ' + azYakit[context.dataIndex];
                         }
                     }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
                 }
             }
         }
     });
 
+    // Çok kiralananlar grafiği
     const ctxCok = document.getElementById('chartCok').getContext('2d');
     new Chart(ctxCok, {
         type: 'bar',
         data: {
             labels: cokLabels,
             datasets: [{
-                label: 'Kiralama Sayısı',
+                label: 'Kiralama Sayısı (Çok)',
                 data: cokValues,
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 borderColor: 'rgba(255, 99, 132, 1)',
@@ -63,21 +56,12 @@ Promise.all([
         options: {
             responsive: true,
             plugins: {
-                title: {
-                    display: true,
-                },
                 tooltip: {
                     callbacks: {
                         afterLabel: function (context) {
-                            const index = context.dataIndex;
-                            return 'Yakıt Türü: ' + cokYakit[index];
+                            return 'Yakıt Türü: ' + cokYakit[context.dataIndex];
                         }
                     }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
                 }
             }
         }
@@ -91,7 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchCarData() {
-    fetch('/api/araclar/gelir_listesi') 
+    // API yolu güncellendi: /api/araclar/ -> /api/filo/
+    fetch('/api/filo/gelir_listesi') 
         .then(response => response.json())
         .then(data => {
             const selectBox = document.getElementById('car-select');
@@ -100,15 +85,11 @@ function fetchCarData() {
                 const option = document.createElement('option');
                 option.value = arac.arac_id;
                 
-            
+                // Yıllık ortalama gelir hesabı
                 const yillikOrtalamaGelir = arac.toplam_gelir / 5; 
-                
                 const formattedIncome = formatCurrency(yillikOrtalamaGelir);
                 
-                // Kullanıcıya artık "Yıllık Ortalama Ciro"yu gösteriyoruz
                 option.textContent = `${arac.arac_model} - (Yıllık Ort. Ciro: ${formattedIncome})`;
-                
-                // Hesaplama için yıllık ortalamayı saklıyoruz
                 option.setAttribute('data-yillik-gelir', yillikOrtalamaGelir);
                 
                 selectBox.appendChild(option);
@@ -129,13 +110,12 @@ function calculateRevenue() {
     }
 
     const selectedOption = carSelect.options[carSelect.selectedIndex];
-    
     const yillikGelir = parseFloat(selectedOption.getAttribute('data-yillik-gelir'));
     const enflasyonOrani = parseFloat(inflationInput);
 
     if (isNaN(yillikGelir)) return;
 
-    // YENİ FORMÜL: Yıllık Ortalama Ciro * (1 + Enflasyon)
+    // Enflasyon Tahmin Formülü
     const tahmini2026Cirosu = yillikGelir * (1 + (enflasyonOrani / 100));
 
     resultValue.textContent = formatCurrency(tahmini2026Cirosu);
@@ -146,16 +126,9 @@ function formatCurrency(amount) {
     return new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(amount);
 }
 
-// Enflasyon ipucuna tıklanınca input'u doldurur
 function fillInflation(rate) {
     const input = document.getElementById('inflation-rate');
     input.value = rate;
-    
-    // Kullanıcıya görsel bir geri bildirim verelim (Input yanıp sönsün)
     input.style.borderColor = "#169a5a";
-    input.style.boxShadow = "0 0 0 4px rgba(22, 154, 90, 0.1)";
-    setTimeout(() => {
-        input.style.borderColor = "";
-        input.style.boxShadow = "";
-    }, 500);
+    setTimeout(() => { input.style.borderColor = ""; }, 500);
 }

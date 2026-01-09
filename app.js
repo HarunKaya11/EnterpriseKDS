@@ -1,31 +1,42 @@
 const express = require('express');
-const db = require('./config/db');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+require('dotenv').config();
+const logger = require('./middleware/logger');
+
+// Rotaları (Routes) İçe Aktarma
+const filoRoutes = require('./routes/filoRoutes');
+const bakimRoutes = require('./routes/bakimRoutes');
+const subeRoutes = require('./routes/subeRoutes');
+const analizRoutes = require('./routes/analizRoutes');
+const tahminRoutes = require('./routes/tahminRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const summaryRoutes = require('./routes/summaryRoutes');
-const subeler = require('./routes/subeler');
-const araclar = require('./routes/araclar');
-const bakimlar = require('./routes/bakimlar');
-const vehicleRoutes = require('./routes/vehicleRoutes');
-const tahminlemeAraclarRoute = require('./routes/tahminlemeAraclar');
-const tahminlemeRoute = require('./routes/tahminleme');
 
-const bodyParser = require('body-parser');
-const cors = require('cors');
-app.use(bodyParser.json());
 app.use(cors());
-
-app.use('/api/bakimlar', bakimlar);
-app.use('/api/summary', summaryRoutes);
-app.use('/api/subeler', subeler);
-app.use('/api/araclar', araclar);
-app.use('/api/vehicles', vehicleRoutes);
-app.use('/api', tahminlemeAraclarRoute); 
-app.use('/api', tahminlemeRoute);
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.static('public'));
+app.use(logger); 
 
+
+// --- MVC Rotalarını Tanımlama ---
+app.use('/api/filo', filoRoutes);           // Araç listeleme ve filo işlemleri
+app.use('/api/bakim', bakimRoutes);         // Bakım masraf ve sayı analizleri
+app.use('/api/sube', subeRoutes);           // Şube bazlı gelir ve kiralama verileri
+app.use('/api/analiz', analizRoutes);       // Genel toplamlar ve özet veriler
+app.use('/api/tahmin', tahminRoutes);       // Yıllık tahminleme ve araç öngörüleri
+app.use('/api/dashboard', dashboardRoutes); // Karmaşık dashboard ve finansal analizler
+
+// --- Sunucuyu Başlatma ---
 app.listen(PORT, () => {
-    console.log(`Server ${PORT} portunda çalışıyor...`);
+    console.log(`
+    ====================================================
+    🚀 Enterprise KDS Sunucusu Hazır!
+    📡 Port: ${PORT}
+    ====================================================
+    `);
 });

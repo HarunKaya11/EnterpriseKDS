@@ -1,10 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../config/db');
+const db = require('../db/db');
 
-
-// Kiralanan Gün Sayısı API
-router.get('/kiralanan-gun', (req, res) => {
+// 1. Sorgu: Kiralanan Gün Sayısı
+const getKiralananGun = (req, res) => {
     const { startDate, endDate } = req.query;
     let query = `
         SELECT subeler.sube_adi, SUM(kiralama.kiralama_suresi) as toplam_kiralanan_gun
@@ -16,9 +13,7 @@ router.get('/kiralanan-gun', (req, res) => {
         query += `WHERE kiralama.kiralama_tarihi BETWEEN ? AND ? `;
     }
 
-    query += `
-        GROUP BY subeler.sube_id
-    `;
+    query += ` GROUP BY subeler.sube_id `;
 
     db.query(query, [startDate, endDate], (err, results) => {
         if (err) {
@@ -27,10 +22,10 @@ router.get('/kiralanan-gun', (req, res) => {
         }
         res.json(results);
     });
-});
+};
 
-// Kiralama Geliri API
-router.get('/kiralama-geliri', (req, res) => {
+// 2. Sorgu: Kiralama Geliri
+const getKiralamaGeliri = (req, res) => {
     const { startDate, endDate } = req.query;
     let query = `
         SELECT subeler.sube_adi, SUM(kiralama.kiralama_ucreti) as kiralama_geliri
@@ -42,9 +37,7 @@ router.get('/kiralama-geliri', (req, res) => {
         query += `WHERE kiralama.kiralama_tarihi BETWEEN ? AND ? `;
     }
 
-    query += `
-        GROUP BY subeler.sube_id
-    `;
+    query += ` GROUP BY subeler.sube_id `;
 
     db.query(query, [startDate, endDate], (err, results) => {
         if (err) {
@@ -53,6 +46,6 @@ router.get('/kiralama-geliri', (req, res) => {
         }
         res.json(results);
     });
-});
+};
 
-module.exports = router;
+module.exports = { getKiralananGun, getKiralamaGeliri };

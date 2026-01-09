@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Şubeler</title>
+    <title>Enterprise KDS - Şube Analizleri</title>
     <link rel="stylesheet" href="../css/subeler.css">
 </head>
 
@@ -14,95 +14,94 @@
         <div class="header-top">
             <div class="logo">
                 <a href="adminPanel.html">
-                    <img src="../images/enterpriselogo.png" alt="enterpriselogo">
+                    <img src="../images/enterpriselogo.png" alt="Enterprise Logo">
                 </a>
             </div>
             <div class="logout">
-                <a href="adminGiris.html">Çıkış Yap</a>
+                <a href="adminGiris.html">Güvenli Çıkış</a>
             </div>
         </div>
-        <div class="navbar">
+        <nav class="navbar">
             <ul class="navbar-items">
-                <a href="adminPanel.html">
-                    <li class="navbar-item">Anasayfa</li>
-                </a>
-                <a href="subeler.html">
-                    <li class="navbar-item">Şubeler</li>
-                </a>
-                <a href="araclar.html">
-                    <li class="navbar-item">Araçlar</li>
-                </a>
-                <a href="bakimlar.html">
-                    <li class="navbar-item">Bakımlar</li>
-                </a>
-                <a href="tahminleme.html">
-                    <li class="navbar-item">Tahminleme</li>
-                </a>
+                <li><a href="adminPanel.html" class="navbar-item">Anasayfa</a></li>
+                <li><a href="subeler.html" class="navbar-item active">Şubeler</a></li>
+                <li><a href="araclar.html" class="navbar-item">Araçlar</a></li>
+                <li><a href="bakimlar.html" class="navbar-item">Bakımlar</a></li>
+                <li><a href="tahminleme.html" class="navbar-item">Tahminleme</a></li>
             </ul>
-        </div>
+        </nav>
     </header>
-
 
     <main>
         <div class="filter-container">
-            <label for="date-filter">Tarih Aralığı Seç:</label>
-            <select id="date-filter">
-                <option value="2021-01-01|2021-03-31">2021 Ocak - Mart</option>
-                <option value="2021-04-01|2021-06-30">2021 Nisan - Haziran</option>
-                <option value="2021-07-01|2021-09-30">2021 Temmuz - Eylül</option>
-                <option value="2021-10-01|2021-12-31">2021 Ekim - Aralık</option>
-                <option value="2022-01-01|2022-03-31">2022 Ocak - Mart</option>
-                <option value="2022-04-01|2022-06-30">2022 Nisan - Haziran</option>
-                <option value="2022-07-01|2022-09-30">2022 Temmuz - Eylül</option>
-                <option value="2022-10-01|2022-12-31">2022 Ekim - Aralık</option>
-                <option value="2023-01-01|2023-03-31">2023 Ocak - Mart</option>
-                <option value="2023-04-01|2023-06-30">2023 Nisan - Haziran</option>
-                <option value="2023-07-01|2023-09-30">2023 Temmuz - Eylül</option>
-                <option value="2023-10-01|2023-12-31">2023 Ekim - Aralık</option>
-                <option value="2024-01-01|2024-03-31">2024 Ocak - Mart</option>
-                <option value="2024-04-01|2024-06-30">2024 Nisan - Haziran</option>
-                <option value="2024-07-01|2024-09-30">2024 Temmuz - Eylül</option>
-                <option value="2024-10-01|2024-12-31">2024 Ekim - Aralık</option>
-                <option value="2025-01-01|2025-03-31">2025 Ocak - Mart</option>
-                <option value="2025-04-01|2025-06-30">2025 Nisan - Haziran</option>
-                <option value="2025-07-01|2025-09-30">2025 Temmuz - Eylül</option>
-                <option value="2025-10-01|2025-12-31">2025 Ekim - Aralık</option>
-            </select>
+            <div class="filter-group">
+                <label for="date-filter">📊 Çeyrek Bazlı Filtre:</label>
+                <select id="date-filter">
+                    <option value="2021-01-01|2021-03-31">2021 Ocak - Mart</option>
+                    <option value="2021-04-01|2021-06-30">2021 Nisan - Haziran</option>
+                    <option value="2021-07-01|2021-09-30">2021 Temmuz - Eylül</option>
+                    <option value="2021-10-01|2021-12-31">2021 Ekim - Aralık</option>
+                    <option value="2022-01-01|2022-03-31" selected>2022 Ocak - Mart</option>
+                    <option value="2022-04-01|2022-06-30">2022 Nisan - Haziran</option>
+                    <option value="2022-07-01|2022-09-30">2022 Temmuz - Eylül</option>
+                    <option value="2022-10-01|2022-12-31">2022 Ekim - Aralık</option>
+                    <option value="2023-01-01|2023-03-31">2023 Ocak - Mart</option>
+                    <option value="2023-04-01|2023-06-30">2023 Nisan - Haziran</option>
+                    <option value="2023-07-01|2023-09-30">2023 Temmuz - Eylül</option>
+                    <option value="2023-10-01|2023-12-31">2023 Ekim - Aralık</option>
+                    <option value="2024-01-01|2024-03-31">2024 Ocak - Mart</option>
+                    <option value="2024-04-01|2024-06-30">2024 Nisan - Haziran</option>
+                    <option value="2024-07-01|2024-09-30">2024 Temmuz - Eylül</option>
+                    <option value="2024-10-01|2024-12-31">2024 Ekim - Aralık</option>
+                    <option value="2025-01-01|2025-03-31">2025 Ocak - Mart</option>
+                    <option value="2025-04-01|2025-06-30">2025 Nisan - Haziran</option>
+                    <option value="2025-07-01|2025-09-30">2025 Temmuz - Eylül</option>
+                    <option value="2025-10-01|2025-12-31">2025 Ekim - Aralık</option>
+                </select>
+            </div>
 
-            <label for="year-filter">Yıl Seç:</label>
-            <select id="year-filter">
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-            </select>
+            <div class="filter-group">
+                <label for="year-filter">📅 Yıllık Filtre:</label>
+                <select id="year-filter">
+                    <option value="2021">2021</option>
+                    <option value="2022" selected>2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
+            </div>
         </div>
 
         <div class="tables-container">
+            <div class="table-card">
+                <h3>Şube Bazlı Kiralama Süreleri</h3>
+                <table id="kiralananGunTable">
+                    <thead>
+                        <tr>
+                            <th>Şube Adı</th>
+                            <th>Toplam Kiralanan Gün</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
 
-            <table id="kiralananGunTable">
-                <thead>
-                    <tr>
-                        <th>ŞUBE ADI</th>
-                        <th>TOPLAM KİRALANAN GÜN</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-
-            <table id="kiralamaGeliriTable">
-                <thead>
-                    <tr>
-                        <th>ŞUBE ADI</th>
-                        <th>KİRALAMA GELİRİ (TL)</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <div class="table-card">
+                <h3>Şube Bazlı Finansal Performans</h3>
+                <table id="kiralamaGeliriTable">
+                    <thead>
+                        <tr>
+                            <th>Şube Adı</th>
+                            <th>Kiralama Geliri (₺)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
         </div>
     </main>
-
 
     <script src="../js/adminSubeler.js"></script>
 </body>

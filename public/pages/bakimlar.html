@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bakımlar</title>
+    <title>Enterprise KDS - Bakım ve Masraf Analizi</title>
     <link rel="stylesheet" href="../css/bakimlar.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -13,82 +13,78 @@
         <div class="header-top">
             <div class="logo">
                 <a href="adminPanel.html">
-                    <img src="../images/enterpriselogo.png" alt="enterpriselogo">
+                    <img src="../images/enterpriselogo.png" alt="Enterprise Logo">
                 </a>
             </div>
             <div class="logout">
                 <a href="adminGiris.html">Çıkış Yap</a>
             </div>
         </div>
-        <div class="navbar">
+        <nav class="navbar">
             <ul class="navbar-items">
-                <a href="adminPanel.html">
-                    <li class="navbar-item">Anasayfa</li>
-                </a>
-                <a href="subeler.html">
-                    <li class="navbar-item">Şubeler</li>
-                </a>
-                <a href="araclar.html">
-                    <li class="navbar-item">Araçlar</li>
-                </a>
-                <a href="bakimlar.html">
-                    <li class="navbar-item">Bakımlar</li>
-                </a>
-                <a href="tahminleme.html">
-                    <li class="navbar-item">Tahminleme</li>
-                </a>
+                <li><a href="adminPanel.html" class="navbar-item">Anasayfa</a></li>
+                <li><a href="subeler.html" class="navbar-item">Şubeler</a></li>
+                <li><a href="araclar.html" class="navbar-item">Araçlar</a></li>
+                <li><a href="bakimlar.html" class="navbar-item active">Bakımlar</a></li>
+                <li><a href="tahminleme.html" class="navbar-item">Tahminleme</a></li>
             </ul>
-        </div>
+        </nav>
     </header>
 
     <main class="dashboard-container">
         <section class="section">
-            <h2>Tablolar</h2>
+            <div class="section-header">
+                <h2>Bakım Verimlilik Tabloları</h2>
+                <p>Bakım sıklığı ile masraf tutarlarının karşılaştırmalı analizi.</p>
+            </div>
+            
             <div class="tables-section">
-                <div>
-                    <h3>Az Bakım - Az Masraf</h3>
+                <div class="table-wrapper">
+                    <h3>⚠️ Risk Grubu: Az Bakım - Çok Masraf</h3>
                     <table id="az-bakim-table">
                         <thead>
                             <tr>
                                 <th>Araç Model</th>
                                 <th>Yakıt Türü</th>
-                                <th>Toplam Bakım Sayısı</th>
+                                <th>Bakım Sayısı</th>
                                 <th>Toplam Masraf</th>
                                 <th>Ortalama Masraf</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            </tbody>
                     </table>
                 </div>
     
-                <div>
-                    <h3>Çok Bakım - Çok Masraf</h3>
+                <div class="table-wrapper">
+                    <h3>✅ Stabil Grup: Çok Bakım - Az Masraf</h3>
                     <table id="cok-bakim-table">
                         <thead>
                             <tr>
                                 <th>Araç Model</th>
                                 <th>Yakıt Türü</th>
-                                <th>Toplam Bakım Sayısı</th>
+                                <th>Bakım Sayısı</th>
                                 <th>Toplam Masraf</th>
                                 <th>Ortalama Masraf</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
         </section>
     
         <section class="section">
-            <h2>Grafikler</h2>
+            <h2>Görsel Bakım Analizleri</h2>
             <div class="charts-section">
                 <div class="chart-container">
-                    <h3>En Masraflı 20 Araç</h3>
+                    <h3>En Masraflı 20 Araç (₺)</h3>
                     <canvas id="masrafliAracChart"></canvas>
                 </div>
     
                 <div class="chart-container">
-                    <h3>Bakım Sayısı En Fazla 20 Araç</h3>
+                    <h3>Bakım Yoğunluğu En Fazla 20 Araç</h3>
                     <canvas id="bakimSayisiChart"></canvas>
                 </div>
             </div>

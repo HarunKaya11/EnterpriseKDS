@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tahminleme</title>
+    <title>Enterprise KDS - Gelecek Öngörü Analizi</title>
     <link rel="stylesheet" href="../css/tahminleme.css">
 </head>
 
@@ -14,113 +14,98 @@
         <div class="header-top">
             <div class="logo">
                 <a href="adminPanel.html">
-                    <img src="../images/enterpriselogo.png" alt="enterpriselogo">
+                    <img src="../images/enterpriselogo.png" alt="Enterprise Logo">
                 </a>
             </div>
             <div class="logout">
-                <a href="adminGiris.html">Çıkış Yap</a>
+                <a href="adminGiris.html">Güvenli Çıkış</a>
             </div>
         </div>
-        <div class="navbar">
+        <nav class="navbar">
             <ul class="navbar-items">
-                <a href="adminPanel.html">
-                    <li class="navbar-item">Anasayfa</li>
-                </a>
-                <a href="subeler.html">
-                    <li class="navbar-item">Şubeler</li>
-                </a>
-                <a href="araclar.html">
-                    <li class="navbar-item">Araçlar</li>
-                </a>
-                <a href="bakimlar.html">
-                    <li class="navbar-item">Bakımlar</li>
-                </a>
-                <a href="tahminleme.html">
-                    <li class="navbar-item">Tahminleme</li>
-                </a>
+                <li><a href="adminPanel.html" class="navbar-item">Anasayfa</a></li>
+                <li><a href="subeler.html" class="navbar-item">Şubeler</a></li>
+                <li><a href="araclar.html" class="navbar-item">Araçlar</a></li>
+                <li><a href="bakimlar.html" class="navbar-item">Bakımlar</a></li>
+                <li><a href="tahminleme.html" class="navbar-item active">Tahminleme</a></li>
             </ul>
-        </div>
+        </nav>
     </header>
 
     <main>
-        <label for="arac-secimi">Aracınızı Seçin:</label>
-        <select id="arac-secimi">
-            <option value="">Araç Seçin</option>
-        </select>
-    
-        <div class="tablo-container">
-            <table id="kiralama-tablosu">
-                <thead>
-                    <tr>
-                        <th>Yıl</th>
-                        <th>Kiralanan Gün Sayısı</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2021</td>
-                        <td id="2021-gun-sayisi"></td>
-                    </tr>
-                    <tr>
-                        <td>2022</td>
-                        <td id="2022-gun-sayisi"></td>
-                    </tr>
-                    <tr>
-                        <td>2023</td>
-                        <td id="2023-gun-sayisi"></td>
-                    </tr>
-                    <tr>
-                        <td>2024</td>
-                        <td id="2024-gun-sayisi"></td>
-                    </tr>
-                    <tr>
-                        <td>2025</td>
-                        <td id="2025-gun-sayisi"></td>
-                    </tr>
-                    <tr>
-                        <td>2026 (Tahmin)</td>
-                        <td id="2026-gun"></td>
-                    </tr>
-                </tbody>
-            </table>
-    
-            <table id="bakim-masrafi-tablosu">
-                <thead>
-                    <tr>
-                        <th>Yıl</th>
-                        <th>Bakım Masrafı</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2021</td>
-                        <td id="2021-masraf"></td>
-                    </tr>
-                    <tr>
-                        <td>2022</td>
-                        <td id="2022-masraf"></td>
-                    </tr>
-                    <tr>
-                        <td>2023</td>
-                        <td id="2023-masraf"></td>
-                    </tr>
-                    <tr>
-                        <td>2024</td>
-                        <td id="2024-masraf"></td>
-                    </tr>
-                    <tr>
-                        <td>2025</td>
-                        <td id="2025-masraf"></td>
-                    </tr>
-                    <tr>
-                        <td>2026 (Tahmin)</td>
-                        <td id="2026-masraf"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <section class="prediction-header">
+            <h2>📊 Analitik Tahminleme Modülü</h2>
+            <p>Seçilen aracın geçmiş performans verilerini kullanarak 2026 projeksiyonlarını inceleyin.</p>
+        </section>
 
+        <div class="selection-container">
+            <label for="arac-secimi">Analiz Edilecek Aracı Seçin:</label>
+            <select id="arac-secimi">
+                <option value="">-- Araç Listesi Yükleniyor --</option>
+            </select>
         </div>
+    
+        <div class="tablo-grid">
+            <div class="prediction-table-wrapper">
+                <h3>🗓️ Kullanım Yoğunluğu Tahmini</h3>
+                <table id="kiralama-tablosu">
+                    <thead>
+                        <tr>
+                            <th>Yıl</th>
+                            <th>Kiralanan Toplam Gün</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>2021</td><td id="2021-gun-sayisi">-</td></tr>
+                        <tr><td>2022</td><td id="2022-gun-sayisi">-</td></tr>
+                        <tr><td>2023</td><td id="2023-gun-sayisi">-</td></tr>
+                        <tr><td>2024</td><td id="2024-gun-sayisi">-</td></tr>
+                        <tr><td>2025</td><td id="2025-gun-sayisi">-</td></tr>
+                        <tr class="prediction-row"><td>2026 (KDS Öngörüsü)</td><td id="2026-gun">Hesaplanıyor...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <div class="prediction-table-wrapper">
+                <h3>🛠️ Operasyonel Maliyet Öngörüsü</h3>
+                <table id="bakim-masrafi-tablosu">
+                    <thead>
+                        <tr>
+                            <th>Yıl</th>
+                            <th>Yıllık Bakım Masrafı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>2021</td><td id="2021-masraf">-</td></tr>
+                        <tr><td>2022</td><td id="2022-masraf">-</td></tr>
+                        <tr><td>2023</td><td id="2023-masraf">-</td></tr>
+                        <tr><td>2024</td><td id="2024-masraf">-</td></tr>
+                        <tr><td>2025</td><td id="2025-masraf">-</td></tr>
+                        <tr class="prediction-row"><td>2026 (Maliyet Tahmini)</td><td id="2026-masraf">Hesaplanıyor...</td></tr>
+                    </tbody>
+                </table>
+            </div>
 
+            <div class="prediction-table-wrapper">
+                <h3>💰 Finansal Getiri Beklentisi</h3>
+                <table id="gelir-tablosu">
+                    <thead>
+                        <tr>
+                            <th>Yıl</th>
+                            <th>Yıllık Kiralama Geliri</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>2021</td><td id="2021-Gelir">-</td></tr>
+                        <tr><td>2022</td><td id="2022-Gelir">-</td></tr>
+                        <tr><td>2023</td><td id="2023-Gelir">-</td></tr>
+                        <tr><td>2024</td><td id="2024-Gelir">-</td></tr>
+                        <tr><td>2025</td><td id="2025-Gelir">-</td></tr>
+                        <tr class="prediction-row"><td>2026 (Ciro Hedefi)</td><td id="2026-Gelir">Hesaplanıyor...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </main>
 
     <script src="../js/adminTahminleme.js"></script>
