@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const logger = require('./middleware/logger');
 
+// Ana dizine (/) gelen istekleri otomatik olarak giriş sayfasına yönlendirir
+app.get('/', (req, res) => {
+    res.redirect('/pages/adminGiris.html');
+});
 // Rotaları (Routes) İçe Aktarma
 const filoRoutes = require('./routes/filoRoutes');
 const bakimRoutes = require('./routes/bakimRoutes');
@@ -11,6 +15,7 @@ const subeRoutes = require('./routes/subeRoutes');
 const analizRoutes = require('./routes/analizRoutes');
 const tahminRoutes = require('./routes/tahminRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
