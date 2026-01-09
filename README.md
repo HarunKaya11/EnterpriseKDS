@@ -20,7 +20,7 @@ Bu proje, bir Karar Destek Sistemi (KDS) prototipi olarak Node.js ortamında MVC
 2. Terminalde npm install komutu ile gerekli paketleri yükleyin. 
 3. db/db.js ve .env dosyasındaki veritabanı bilgilerini kendi yerel ayarlarınıza göre güncelleyin. 
 4. node app.js komutu ile uygulamayı başlatın. 
-
+5. Tarayıcıdan localhost:3000 adresine gidin ve giriş yapın.
 ---
 # UYGULAMAYA AİT EKRAN GÖRÜNTÜLERİ
 
